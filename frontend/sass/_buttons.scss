@@ -1,0 +1,18 @@
+.btn {
+
+    &__form {
+        font-family: $text-default;
+        color: $color-text;
+        font-weight: 600;
+        background-color: $color-button;  
+        border: none;
+        text-transform: uppercase;
+        padding: .5rem 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+
+        @media only screen and (max-width: $bp-medium) {
+            font-size: 50%;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+.h-one {
+    color: $color-title;
+    font-size: 6rem;
+    text-align: center;
+    padding: 4rem;
+    font-weight: 600;
+}
+
+.h-three {
+    color: $color-subtitle;
+    font-size: 2rem;
+    font-weight: 200;
+    margin-left: 2rem;
+}
+
+.header__link {
+    
+    text-decoration: none;
+    color: $color-subtitle;
+    font-size: 2rem;
+    font-weight: 200;
+}

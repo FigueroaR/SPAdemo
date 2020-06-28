@@ -15,29 +15,23 @@ function allProjects(){
     .then(projects => {
       projects.sort((a, b) => a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? 1 : -1)
         main.innerHTML+= projects.map(project =>  ` 
-        <li> Project: <a href="#" class="projectlink" data-cid="${project.contractor_id}" data-id="${project.id}"> ${project.name}</a> 
-        | By:
-        <button data-id=${project.contractor_id} class="show" onclick="showContractor(${project.contractor_id})"; return false;>
-          <svg class="content__main--icon-contractor">
+        <li><a href="#" class="content__item content__item--projectlink" data-cid="${project.contractor_id}" data-id="${project.id}"> ${project.name}</a>
+        
+          <svg data-id=${project.contractor_id} class="content__icon content__icon--contractor" onclick="showContractor(${project.contractor_id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-user"></use>
           </svg>
-        </button>
-        
-        <button data-id=${project.id} class="edit" onclick="editProject(${project.contractor_id},${project.id})"; return false;>
-          <svg class="content__main--icon-edit">
+  
+          <svg data-id=${project.id} class="content__icon content__icon--edit" onclick="editProject(${project.contractor_id},${project.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-edit"></use>
           </svg>
-        </button>
-
-        <button data-id=${project.id} class="delete" onclick="deleteProject(${project.id})"; return false;>
-          <svg class="content__main--icon-delete">
+        
+          <svg data-id=${project.id} class="content__icon content__icon--delete" onclick="deleteProject(${project.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-file-minus"></use>
           </svg>
-        </button>
         </li>
         `).join(''); 
 
-        let individualContracts = document.querySelectorAll("a.projectlink")
+        let individualContracts = document.querySelectorAll("a.content__item--projectlink")
             individualContracts.forEach( project => {
                 project.addEventListener("click", (e) => {
                     showProject(e.currentTarget.dataset.id, e.currentTarget.dataset.cid)
@@ -45,10 +39,9 @@ function allProjects(){
                    
                 })
             })
-        let closeForm =  document.querySelector(".edit")
-            closeForm.addEventListener("dblclick", clearForm())
     })
 }
+
 function showProject(id, cid){
   clearForm();
   clearMainContent();
@@ -59,13 +52,13 @@ function showProject(id, cid){
     .then(project => {
         
         let html = `
-        <h3>Project Name:</h3>
+        <h3 class="h-three">Project Name:</h3>
         <p>${project.name}</p></br>
-        <h3>Budget:</h3>
+        <h3 class="h-three">Budget:</h3>
         <p>${project.cost}</p></br>
-        <h3>Staff Total:</h3>
+        <h3 class="h-three">Staff Total:</h3>
         <p>${project.employees}</p></br>
-        <h3>Contractor ID:</h3>
+        <h3 class="h-three">Contractor ID:</h3>
         <p>${project.contractor_id}</p></br>
         `
         main.innerHTML += html
@@ -77,29 +70,30 @@ function newProject(id) {
   //clearMainContent();
   console.log("new project")
   let form = document.getElementsByClassName("content__form")[0]
-  let html = `<form class="createProject" >
-  <label>Project Name:</label>
-  <input type="text" id="Project Name"></br>
-  <label>Total Cost:</label>
-  <input type="number" id="Cost"></br>
-  <label>Staff Total:</label>
-  <input type="number" id="Employees"></br>
+  let html = `<form class="content__form--input">
+  <label class="content__form--label">Project Name:</label><br>
+  <input class="content__form--field" type="text" id="Project Name"></br>
+  <label class="content__form--label">Total Cost:</label><br>
+  <input class="content__form--field" type="number" id="Cost"></br>
+  <label class="content__form--label">Staff Total:</label><br>
+  <input class="content__form--field" type="number" id="Employees"></br>
   <input type="hidden" id="contractorID" value=${id} data-id=${id}>
-  <input type="submit" data-id=${id} value="Create Project" class="btn btn__createProject">
-  <button class="cancel">Cancel</button
+  <input type="submit" data-id=${id} value="Create Project" class="btn btn__form btn__form--createProject">
+  <button class="btn btn__form btn__form--cancel">Cancel</button>
   </form>`
   form.innerHTML = html
-  let executeProject = document.querySelector("input.btn__createProject")
+  let executeProject = document.querySelector("input.btn__form--createProject")
     executeProject.addEventListener("click", (e) => {
         createProject(e.currentTarget.dataset.id) 
         //allProjects()
         e.preventDefault()
         
     } )
-    let cancel = document.querySelector(".cancel")
+    let cancel = document.querySelector(".btn__form--cancel")
     cancel.addEventListener("click", clearForm)
-
 }
+
+
 function createProject(id){
   console.log("create Project")
   let main = document.getElementsByClassName("content__main")[0]
@@ -121,32 +115,28 @@ function createProject(id){
   .then(resp => resp.json())
   .then( project => { 
     main.innerHTML +=  `
-    <li> Project: <a href="#" class="projectlink" data-cid="${project.contractor_id}" data-id="${project.id}"> ${project.name}</a> 
-        | By:
-        <button data-id=${project.contractor_id} class="show" onclick="showContractor(${project.contractor_id})"; return false;>
-          <svg class="content__main--icon-contractor">
+    <li><a href="#" class="content__item content__item--projectlink" data-cid="${project.contractor_id}" data-id="${project.id}"> ${project.name}</a>
+        
+          <svg data-id=${project.contractor_id} class="content__icon content__icon--contractor" onclick="showContractor(${project.contractor_id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-user"></use>
           </svg>
-        </button>
-        
-        <button data-id=${project.id} class="edit" onclick="editProject(${project.contractor_id},${project.id})"; return false;>
-          <svg class="content__main--icon-edit">
+  
+          <svg data-id=${project.id} class="content__icon content__icon--edit" onclick="editProject(${project.contractor_id},${project.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-edit"></use>
           </svg>
-        </button>
-
-        <button data-id=${project.id} class="delete" onclick="deleteProject(${project.id})"; return false;>
-          <svg class="content__main--icon-delete">
+        
+          <svg data-id=${project.id} class="content__icon content__icon--delete" onclick="deleteProject(${project.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-file-minus"></use>
           </svg>
-        </button>
-        </li>
+    </li>
     `
   })
   clearForm();
   clearMainContent();
   allProjects();
 }
+
+
 function editProject(cid, id){
   console.log("edit Project")
   clearForm();
@@ -155,29 +145,31 @@ function editProject(cid, id){
     .then(project => {
         let main = document.getElementsByClassName("content__form")[0]
         let html = `
-        <form>
-        <label>Project Name:</label>
-        <input type="text" id="name" value="${project.name}"></br>
-        <label>Budget:</label>
-        <input type="number" id="cost" value="${project.cost}"></br>
-        <label>Staff Total:</label>
-        <input type="number" id="employees" value="${project.employees}"></br>
-        <input type="hidden" id="contractorID" value="${project.contractor_id}" data-id="${project.contractor_id}"> 
-        <input type ="submit" value="Edit Project" class="btn btn__editThisProject" data-id="${project.id}">
-        <button class="cancel">Cancel</button
+        <form class="content__form--input">
+          <label class="content__form--label">Project Name:</label><br>
+          <input class="content__form--field" type="text" id="name" value="${project.name}"></br>
+          <label class="content__form--label">Budget:</label><br>
+          <input class="content__form--field" type="number" id="cost" value="${project.cost}"></br>
+          <label class="content__form--label">Staff Total:</label><br>
+          <input class="content__form--field" type="number" id="employees" value="${project.employees}"></br>
+          <input type="hidden" id="contractorID" value="${project.contractor_id}" data-id="${project.contractor_id}"> 
+          <input type ="submit" value="Edit Project" class="btn btn__form btn__form--editThisProject" data-id="${project.id}">
+          <button class="btn btn__form btn__form--cancel">Cancel</button>
         </form>
         `
         main.innerHTML = html;
-        let editThisContract = document.querySelector("input.btn__editThisProject")
+        let editThisContract = document.querySelector("input.btn__form--editThisProject")
         editThisContract.addEventListener("click", (e) => {
             updateProject(e.currentTarget.dataset.id) 
             e.preventDefault();
         }) 
-        let cancel = document.querySelector(".cancel")
+        let cancel = document.querySelector(".btn__form--cancel")
         cancel.addEventListener("click", clearForm)
 
     })
 }
+
+
 function updateProject(id){
   console.log("update projects")
   let updated = new Project(
@@ -196,30 +188,26 @@ function updateProject(id){
   }).then(resp => resp.json())
   .then( project => {
     let tag = document.querySelectorAll(`a[data-id="${id}"]`)[0].parentElement
-    tag.innerHTML = `Project: <a href="#" class="projectlink" data-cid="${project.contractor_id}" data-id="${project.id}"> ${project.name}</a> 
-    | By:
-    <button data-id=${project.contractor_id} class="show" onclick="showContractor(${project.contractor_id})"; return false;>
-      <svg class="content__main--icon-contractor">
+    tag.innerHTML = `
+      <a href="#" class="content__item content__item--projectlink" data-cid="${project.contractor_id}" data-id="${project.id}"> ${project.name}</a>
+    
+      <svg data-id=${project.contractor_id} class="content__icon content__icon--contractor" onclick="showContractor(${project.contractor_id})"; return false;>
         <use xlink:href="img/sprite.svg#icon-user"></use>
       </svg>
-    </button>
-    
-    <button data-id=${project.id} class="edit" onclick="editProject(${project.contractor_id},${project.id})"; return false;>
-      <svg class="content__main--icon-edit">
+   
+      <svg data-id=${project.id} class="content__icon content__icon--edit" onclick="editProject(${project.contractor_id},${project.id})"; return false;>
         <use xlink:href="img/sprite.svg#icon-edit"></use>
       </svg>
-    </button>
 
-    <button data-id=${project.id} class="delete" onclick="deleteProject(${project.id})"; return false;>
-      <svg class="content__main--icon-delete">
+      <svg data-id=${project.id} class="content__icon content__icon--delete" onclick="deleteProject(${project.id})"; return false;>
         <use xlink:href="img/sprite.svg#icon-file-minus"></use>
       </svg>
-    </button>
     `
   
     clearForm()
   })
 }
+
 
 function deleteProject(id) {
   console.log("all projects")

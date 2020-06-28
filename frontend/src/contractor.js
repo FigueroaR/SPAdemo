@@ -15,34 +15,30 @@ function allContractors(){
   .then(contractors => {
     contractors.sort((a, b) => a.lastName.toLocaleLowerCase() > b.lastName.toLocaleLowerCase() ? 1 : -1)
     main.innerHTML+= contractors.map( contractor =>  `
-        <li><a href="#" class="userProfile" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}, ${contractor.firstName}</a>
+        <li><a href="#" class="content__item content__item--userProfile" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}, ${contractor.firstName}</a>
       
-        <button data-id=${contractor.id} class="btn btn__projects" onclick="contractorProjects(${contractor.id})"; return false;>
-          <svg class="content__main--icon-list">
+        
+          <svg data-id=${contractor.id} class="content__icon content__icon--list" onclick="contractorProjects(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-list"></use>
           </svg>
-        </button>
+        
 
-        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="btn btn__project" onclick="newProject(${contractor.id})"; return false;>
-          <svg class="content__main--icon-newproject">
+        
+          <svg data-lastname=${contractor.lastName} data-id=${contractor.id} class="content__icon content__icon--newproject" onclick="newProject(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-file-plus"></use>
           </svg>
-        </button>
 
-        <button data-id=${contractor.id} class="btn btn__edit" onclick="editContractor(${contractor.id})"; return false;><svg class="link__edit">
-          <svg class="content__main--icon-edit">
+      
+          <svg data-id=${contractor.id} class="content__icon content__icon--edit" onclick="editContractor(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-edit"></use>
           </svg>
-        </button>
-
-        <button data-id=${contractor.id} class="btn btn__delete" onclick="deleteContractor(${contractor.id})"; return false;><svg class="link__delete">
-          <svg class="content__main--icon-delete">
+        
+          <svg data-id=${contractor.id} class="content__icon content__icon--delete" onclick="deleteContractor(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-user-x"></use>
           </svg>
-        </button>
       </li>`).join(''); 
 
-      let profiles = document.querySelectorAll("a.userProfile")
+      let profiles = document.querySelectorAll("a.content__item--userProfile")
         profiles.forEach( contractor => {
           contractor.addEventListener("click", (e) => {
             showContractor(e.currentTarget.dataset.id)
@@ -51,6 +47,8 @@ function allContractors(){
       })
   })
 }
+
+
 function showContractor(id){
   
   clearForm();
@@ -60,18 +58,20 @@ function showContractor(id){
   fetch( BASE_URL + `/contractors/${id}`)
   .then( resp => resp.json())
   .then( contractor => {
-    let html = `<h3>First Name:</h3>
+    let html = `<h3 class="h-three">First Name:</h3>
     <p> ${contractor.firstName}</p></br>
-    <h3>Last Name:</h3>
+    <h3 class="h-three">Last Name:</h3>
     <p> ${contractor.lastName}</p></br>
-    <h3>Phone Num:</h3>
+    <h3 class="h-three">Phone Num:</h3>
     <p>${contractor.phoneNum} </p></br>
-    <h3>email:</h3>
+    <h3 class="h-three">email:</h3>
     <p>${contractor.email} </p></br>`
 
     main.innerHTML = html
   })
-}
+} 
+
+
 function newContractor() {
   console.log("new contractor")
   clearForm();
@@ -79,27 +79,27 @@ function newContractor() {
 
   let form = document.getElementsByClassName("content__form")[0]
   let html = `
-        <form class="content__input">
-        <label>First Name:</label>
-        <input type ="text" id="First Name"></br>
-        <label>Last Name:</label>
-        <input type ="text" id="Last Name"></br>
-        <label>Phone Num:</label>
-        <input type ="text" id="Phone Num"></br>
-        <label>email:</label>
-        <input type ="text" id="email"></br>
-        <input type ="submit" value="Create Contractor" class="btn btn__input">
-        <button class="cancel">Cancel</button
+        <form class="content__form--input">
+          <label class="content__form--label">First Name:</label></br>
+          <input class="content__form--field" type ="text" id="First Name"></br>
+          <label class="content__form--label">Last Name:</label></br>
+          <input class="content__form--field" type ="text" id="Last Name"></br>
+          <label class="content__form--label">Phone Num:</label></br>
+          <input class="content__form--field" type ="text" id="Phone Num"></br>
+          <label class="content__form--label">email:</label></br>
+          <input class="content__form--field" type ="text" id="email"></br>
+          <input type ="submit" value="Create Contractor" class="btn btn__form btn__form--input">
+          <button class="btn btn__form btn__form--cancel">Cancel</button>
         </form>
     `
     form.innerHTML = html
-    let create = document.querySelector("input.btn__input")
+    let create = document.querySelector("input.btn__form--input")
     create.addEventListener("click" , (e) => {
       createContractor()
       e.preventDefault();
     })
 
-    let cancel = document.querySelector(".cancel")
+    let cancel = document.querySelector(".btn__form--cancel")
       cancel.addEventListener("click", clearForm)
 }
 
@@ -122,34 +122,30 @@ function createContractor(){
     .then(resp => resp.json())
     .then(contractor => {
         main.innerHTML+= `
-        <li><a href="#" class="userProfile" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}, ${contractor.firstName}</a>
+        <li><a href="#" class="content__item content__item--userProfile" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}, ${contractor.firstName}</a>
       
-        <button data-id=${contractor.id} class="btn btn__projects" onclick="contractorProjects(${contractor.id})"; return false;>
-          <svg class="content__main--icon-list">
+        
+          <svg data-id=${contractor.id} class="content__icon content__icon--list" onclick="contractorProjects(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-list"></use>
           </svg>
-        </button>
+        
 
-        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="btn btn__project" onclick="newProject(${contractor.id})"; return false;>
-          <svg class="content__main--icon-newproject">
+        
+          <svg data-lastname=${contractor.lastName} data-id=${contractor.id} class="content__icon content__icon--newproject" onclick="newProject(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-file-plus"></use>
           </svg>
-        </button>
 
-        <button data-id=${contractor.id} class="btn btn__edit" onclick="editContractor(${contractor.id})"; return false;><svg class="link__edit">
-          <svg class="content__main--icon-edit">
+      
+          <svg data-id=${contractor.id} class="content__icon content__icon--edit" onclick="editContractor(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-edit"></use>
           </svg>
-        </button>
-
-        <button data-id=${contractor.id} class="btn btn__delete" onclick="deleteContractor(${contractor.id})"; return false;><svg class="link__delete">
-          <svg class="content__main--icon-delete">
+        
+          <svg data-id=${contractor.id} class="content__icon content__icon--delete" onclick="deleteContractor(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-user-x"></use>
           </svg>
-        </button>
       </li>
       `
-      let profiles = document.querySelectorAll("a.userProfile")
+      let profiles = document.querySelectorAll("a.ccontent__item--userProfile")
         profiles.forEach( contractor => {
           contractor.addEventListener("click", (e) => {
             showContractor(e.currentTarget.dataset.id)
@@ -159,6 +155,8 @@ function createContractor(){
       clearForm();
     })
 }
+
+
 function editContractor(id){
   console.log("edit contractor")
   fetch( BASE_URL + `/contractors/${id}`) 
@@ -166,29 +164,32 @@ function editContractor(id){
     .then(contractor => {
         let form = document.getElementsByClassName("content__form")[0]
     
-        let html = `<form>
-                <label>First Name: </label>
-                <input type ="text" id="First Name" value="${contractor.firstName}"></br>
-                <label>Last Name:</label>
-                <input type ="text" id="Last Name" value="${contractor.lastName}"></br>
-                <label>Phone Num:</label>
-                <input type ="text" id="Phone Num" value="${contractor.phoneNum}"></br>
-                <label>email:</label>
-                <input type ="text" id="email" value="${contractor.email}"></br>
-                <input type ="submit" class="btn btn__editContractor" value="Edit Contractor" data-id="${contractor.id}">
-                <button class="cancel">Cancel</button
-            </form>`
-            form.innerHTML = html
+        let html = `
+        <form class="content__form--input">
+          <label class="content__form--label">First Name: </label><br>
+          <input class="content__form--field" class="content__form--field type ="text" id="First Name" value="${contractor.firstName}"></br>
+          <label class="content__form--label">Last Name:</label><br>
+          <input class="content__form--field" class="content__form--field type ="text" id="Last Name" value="${contractor.lastName}"></br>
+          <label class="content__form--label">Phone Num:</label><br>
+          <input class="content__form--field" class="content__form--field type ="text" id="Phone Num" value="${contractor.phoneNum}"></br>
+          <label class="content__form--label">email:</label><br>
+          <input class="content__form--field" type ="text" id="email" value="${contractor.email}"></br>
+          <input type ="submit" class="btn btn__form btn__form--editContractor" value="Edit Contractor" data-id="${contractor.id}">
+          <button class="btn btn__form btn__form--cancel">Cancel</button>
+        </form>`
 
-            let editThisContractor = document.querySelector("input.btn__editContractor")
+        form.innerHTML = html
+
+            let editThisContractor = document.querySelector("input.btn__form--editContractor")
             editThisContractor.addEventListener("click", (e) => {
                 updateContractor(e.currentTarget.dataset.id) 
                 e.preventDefault();
             })
-            let cancel = document.querySelector(".cancel")
+            let cancel = document.querySelector(".btn__form--cancel")
             cancel.addEventListener("click", clearForm)
     })
 }
+
 function updateContractor(id){
   console.log("update contractors")
   let updatedContractor = new Contractor(document.getElementById("First Name").value, 
@@ -208,33 +209,30 @@ function updateContractor(id){
   .then( contractor => {
     let tag = document.querySelectorAll(`li a[data-id="${id}"]`)[0].parentElement
     tag.innerHTML = `
-      <a href="#" class="userProfile" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}, ${contractor.firstName}</a>
+    <li><a href="#" class="content__item content__item--userProfile" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}, ${contractor.firstName}</a>
       
-        <button data-id=${contractor.id} class="btn btn__projects" onclick="contractorProjects(${contractor.id})"; return false;>
-          <svg class="content__main--icon-list">
+        
+          <svg data-id=${contractor.id} class="content__icon content__icon--list" onclick="contractorProjects(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-list"></use>
           </svg>
-        </button>
+        
 
-        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="btn btn__project" onclick="newProject(${contractor.id})"; return false;>
-          <svg class="content__main--icon-newproject">
+        
+          <svg data-lastname=${contractor.lastName} data-id=${contractor.id} class="content__icon content__icon--newproject" onclick="newProject(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-file-plus"></use>
           </svg>
-        </button>
 
-        <button data-id=${contractor.id} class="btn btn__edit" onclick="editContractor(${contractor.id})"; return false;><svg class="link__edit">
-          <svg class="content__main--icon-edit">
+      
+          <svg data-id=${contractor.id} class="content__icon content__icon--edit" onclick="editContractor(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-edit"></use>
           </svg>
-        </button>
-
-        <button data-id=${contractor.id} class="btn btn__delete" onclick="deleteContractor(${contractor.id})"; return false;><svg class="link__delete">
-          <svg class="content__main--icon-delete">
+        
+          <svg data-id=${contractor.id} class="content__icon content__icon--delete" onclick="deleteContractor(${contractor.id})"; return false;>
             <use xlink:href="img/sprite.svg#icon-user-x"></use>
           </svg>
-        </button>
-      `
-      let profiles = document.querySelectorAll("a.userProfile")
+    </li>
+    `
+      let profiles = document.querySelectorAll("a.content__item--userProfile")
         profiles.forEach( contractor => {
           contractor.addEventListener("click", (e) => {
             showContractor(e.currentTarget.dataset.id)
@@ -258,7 +256,7 @@ function deleteContractor(id) {
   }
 
 
-  function contractorProjects(id){
+function contractorProjects(id){
     clearForm();
   clearMainContent();
   console.log("contractor projects")
@@ -266,26 +264,31 @@ function deleteContractor(id) {
   fetch(BASE_URL + `/contractors/${id}`)
     .then(resp => resp.json())
     .then(contractors => {
-      main.innerHTML += contractors.projects.map( project => 
-        `<li> Project: <a href="#" class="projectlink" data-cid="${project.contractor_id}" data-id="${project.id}"> ${project.name}</a> 
-        | By:
-        <button data-id=${project.contractor_id} class="show" onclick="showContractor(${project.contractor_id})"; return false;>
-          <svg class="content__main--icon-contractor">
-            <use xlink:href="img/sprite.svg#icon-user"></use>
-          </svg>
-        </button>
+      main.innerHTML += contractors.projects.map( project => `
+      <li><a href="#" class="content__item content__item--projectlink" data-cid="${project.contractor_id}" data-id="${project.id}"> ${project.name}</a>
         
-        <button data-id=${project.id} class="edit" onclick="editProject(${project.contractor_id},${project.id})"; return false;>
-          <svg class="content__main--icon-edit">
-            <use xlink:href="img/sprite.svg#icon-edit"></use>
-          </svg>
-        </button>
-
-        <button data-id=${project.id} class="delete" onclick="deleteProject(${project.id})"; return false;>
-          <svg class="content__main--icon-delete">
-            <use xlink:href="img/sprite.svg#icon-file-minus"></use>
-          </svg>
-        </button>
-      </li>`).join('')  
+        <svg data-id=${project.contractor_id} class="content__icon content__icon--contractor" onclick="showContractor(${project.contractor_id})"; return false;>
+          <use xlink:href="img/sprite.svg#icon-user"></use>
+        </svg>
+        
+        <svg data-id=${project.id} class="content__icon content__icon--edit" onclick="editProject(${project.contractor_id},${project.id})"; return false;>
+          <use xlink:href="img/sprite.svg#icon-edit"></use>
+        </svg>
+    
+        <svg data-id=${project.id} class="content__icon content__icon--delete" onclick="deleteProject(${project.id})"; return false;>
+          <use xlink:href="img/sprite.svg#icon-file-minus"></use>
+        </svg>
+      
+      </li>`).join('')
+      
+      
+      let individualContracts = document.querySelectorAll("a.content__item--projectlink")
+            individualContracts.forEach( project => {
+                project.addEventListener("click", (e) => {
+                    showProject(e.currentTarget.dataset.id, e.currentTarget.dataset.cid)
+                    e.preventDefault();
+                   
+                })
+            })
     })
-  }
+}
