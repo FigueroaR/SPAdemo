@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000"
+//const BASE_URL = "http://localhost:3000"
+const BASE_URL = "https://mysterious-tundra-74678.herokuapp.com"
 window.addEventListener('load', () => {
   console.log("Welcome to Project Central! Where you can keep track of your employees projects.")
 
