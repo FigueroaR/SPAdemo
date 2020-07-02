@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000"
+//const BASE_URL = "http://localhost:3000"
 const BASE_URL = "https://git.heroku.com/project-central-by-rf.git"
 window.addEventListener('load', () => {
   console.log("Welcome to Project Central! Where you can keep track of your employees projects.")
