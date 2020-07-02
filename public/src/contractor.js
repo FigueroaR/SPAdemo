@@ -10,13 +10,7 @@ function allContractors(){
   clearMainContent()
   console.log("all contractors")
   let main = document.getElementsByClassName("content__main")[0]
-  fetch( BASE_URL + "/contractors", {
-    method: "GET",
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }
-  })
+  fetch( BASE_URL + "/contractors")
   .then(resp => resp.json())
   .then(contractors => {
     contractors.sort((a, b) => a.lastName.toLocaleLowerCase() > b.lastName.toLocaleLowerCase() ? 1 : -1)
