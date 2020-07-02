@@ -11,7 +11,7 @@ function allContractors(){
   console.log("all contractors")
   let main = document.getElementsByClassName("content__main")[0]
   fetch( BASE_URL + "/contractors", {
-    method: "DELETE",
+    method: "GET",
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
