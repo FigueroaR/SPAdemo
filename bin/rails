@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby\r
 
 begin
   load File.expand_path('../spring', __FILE__)
