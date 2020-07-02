@@ -1,5 +1,5 @@
 //const BASE_URL = "http://localhost:3000"
-const BASE_URL = "https://project-central-by-rf.herokuapp.com/"
+const BASE_URL = "https://project-central-by-rf.herokuapp.com"
 window.addEventListener('load', () => {
   console.log("Welcome to Project Central! Where you can keep track of your employees projects.")
 
