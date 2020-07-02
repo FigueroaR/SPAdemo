@@ -1,0 +1,103 @@
+.content {
+    display: grid;
+    grid-template-rows: repeat(2, min-content);
+
+    
+
+    &__form {
+        background-color: $color-element;
+        margin: 1rem 5rem;
+
+        border-radius: 20px;
+
+        @media only screen and (max-width: $bp-medium) {
+            margin: 1rem 0rem;
+        }
+
+        &--input {
+            margin: 2rem 0 2rem 2rem;
+            // font-family: inherit;
+
+        }
+
+        &--field{
+            width: calc(100% - 2rem);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            height: 1.6rem;
+            font-family: inherit;
+            border: none;
+        } 
+
+        &--label {
+            //font-family: $text-default;
+            color: $color-text;
+            font-size: 1.6rem;
+            font-weight: 200;
+        }
+    }
+
+    &__main {
+        list-style: none;
+        background-color: $color-element;
+        padding: 1rem 0;
+        margin: 0 5rem;
+        border-radius: 20px; 
+
+        @media only screen and (max-width: $bp-medium) {
+            margin: 0 0rem;
+        }
+
+    }
+
+    &__item {
+        text-decoration: none;
+        color: $color-text;
+        margin: 0 1rem 0 2rem;
+        font-size: 1.6rem;
+        transition: all .3s;
+        
+    }
+
+    &__item:hover, &__item:link{
+        // transform: translateY(-3px);
+        color: $color-subtitle;
+    }
+
+
+    p {
+        color: $color-text;
+        font-size: 1.6rem;
+        margin-left: 2rem;
+
+        font-weight: 200;
+     }
+
+    &__icon {
+        width:  2rem;
+        height: 2rem;
+        fill: $color-text;
+        border-radius: 50%;
+        transform: translateY(+.4rem);
+        margin-right: 3px;
+        cursor: pointer;
+
+        transition: all .2s;
+
+        &--list:hover, &--newproject:hover, &--contractor:hover {
+            transform: translateY(-2px);
+            fill: green;
+        }
+
+        &--edit:hover {
+            transform: translateY(-2px);
+            fill: orange;
+        }
+
+        &--delete:hover {
+            transform: translateY(-2px);
+            fill: red;
+        }
+    }
+
+}
