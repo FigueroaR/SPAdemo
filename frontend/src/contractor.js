@@ -88,7 +88,7 @@ function newContractor() {
           <input class="content__form--field" type ="text" id="Phone Num"></br>
           <label class="content__form--label">email:</label></br>
           <input class="content__form--field" type ="text" id="email"></br>
-          <input type ="submit" value="Create Contractor" class="btn btn__form btn__form--input">
+          <input type="submit" value="Create Contractor" class="btn btn__form btn__form--input">
           <button class="btn btn__form btn__form--cancel">Cancel</button>
         </form>
     `
